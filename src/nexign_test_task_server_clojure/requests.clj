@@ -13,10 +13,7 @@
               username)
         {:keys [body status]} (client/get url {:as :json :accept :json :throw-exceptions false})
         success (-> body :response :success)]
-    (println body)
     (if (and (status-ok? status) (= success 1))
-      (-> (rr/response body)
-          (rr/content-type "application/json"))
+      (rr/response body)
       (-> (rr/response "Bad '/steamid' request")
-          (rr/content-type "application/json")
           (rr/status 400)))))
