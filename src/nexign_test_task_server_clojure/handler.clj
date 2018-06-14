@@ -25,7 +25,7 @@
 
 (defroutes app-routes
            (GET "/common-games" [steamids]
-             (doall (requests/get-common-games steam-api-key steamids)))
+             (requests/get-common-games steam-api-key steamids))
            (GET "/steamid" [username]
              (requests/get-steamid steam-api-key username))
            (route/not-found "Not Found"))
