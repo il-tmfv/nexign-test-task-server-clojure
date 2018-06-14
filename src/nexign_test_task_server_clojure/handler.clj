@@ -3,14 +3,16 @@
             [compojure.route :as route]
             [ring.middleware.json :as ring-json]
             [ring.util.response :as rr]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [nexign-test-task-server-clojure.requests :as requests]))
 
 (def steam-api-key (System/getenv "STEAM_API_KEY"))
 
 (println (str "Provided Steam API key: " steam-api-key))
 
 (defroutes app-routes
-  (GET "/" [] "Hello World")
+  (GET "/steamid" [username]
+    (requests/get-steamid steam-api-key username))
   (route/not-found "Not Found"))
 
 (def app
